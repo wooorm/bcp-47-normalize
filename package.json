@@ -1,6 +1,6 @@
 {
   "name": "bcp-47-normalize",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Normalize, canonicalize, and format BCP 47 tags",
   "license": "MIT",
   "keywords": [
