@@ -86,6 +86,8 @@ regions split into multiple regions).
     — Parse and stringify BCP 47 language tags
 *   [`bcp-47-match`](https://github.com/wooorm/bcp-47-match)
     — Match BCP 47 language tags with language ranges per RFC 4647
+*   [`iso-3166`](https://github.com/wooorm/iso-3166)
+    — ISO 3166 codes
 *   [`iso-639-2`](https://github.com/wooorm/iso-639-2)
     — ISO 639-2 codes
 *   [`iso-639-3`](https://github.com/wooorm/iso-639-3)
