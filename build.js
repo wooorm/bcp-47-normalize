@@ -10,7 +10,7 @@ var normalize = require('bcp-47/lib/normalize')
 var own = {}.hasOwnProperty
 
 var endpoint =
-  'https://raw.githubusercontent.com/unicode-org/cldr/master/common/supplemental/supplementalMetadata.xml'
+  'https://raw.githubusercontent.com/unicode-org/cldr/HEAD/common/supplemental/supplementalMetadata.xml'
 
 fetch(endpoint)
   .then((response) => response.text())

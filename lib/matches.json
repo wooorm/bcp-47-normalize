@@ -340,6 +340,78 @@
     "to": "nbr"
   },
   {
+    "from": "sgn-br",
+    "to": "bzs"
+  },
+  {
+    "from": "sgn-co",
+    "to": "csn"
+  },
+  {
+    "from": "sgn-de",
+    "to": "gsg"
+  },
+  {
+    "from": "sgn-dk",
+    "to": "dsl"
+  },
+  {
+    "from": "sgn-fr",
+    "to": "fsl"
+  },
+  {
+    "from": "sgn-gb",
+    "to": "bfi"
+  },
+  {
+    "from": "sgn-gr",
+    "to": "gss"
+  },
+  {
+    "from": "sgn-ie",
+    "to": "isg"
+  },
+  {
+    "from": "sgn-it",
+    "to": "ise"
+  },
+  {
+    "from": "sgn-jp",
+    "to": "jsl"
+  },
+  {
+    "from": "sgn-mx",
+    "to": "mfs"
+  },
+  {
+    "from": "sgn-ni",
+    "to": "ncs"
+  },
+  {
+    "from": "sgn-nl",
+    "to": "dse"
+  },
+  {
+    "from": "sgn-no",
+    "to": "nsi"
+  },
+  {
+    "from": "sgn-pt",
+    "to": "psr"
+  },
+  {
+    "from": "sgn-se",
+    "to": "swl"
+  },
+  {
+    "from": "sgn-us",
+    "to": "ase"
+  },
+  {
+    "from": "sgn-za",
+    "to": "sfs"
+  },
+  {
     "from": "no-bokmal",
     "to": "nb"
   },
