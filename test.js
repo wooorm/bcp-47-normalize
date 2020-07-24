@@ -3,8 +3,8 @@
 var test = require('tape')
 var normalize = require('.')
 
-test('bcp-47-normalize', function(t) {
-  t.test('basic', function(t) {
+test('bcp-47-normalize', function (t) {
+  t.test('basic', function (t) {
     t.equal(normalize(), '', 'should not fail on without a value')
     t.equal(normalize(''), '', 'should not fail on an empty string')
     t.equal(normalize('en-us'), 'en', 'should normalize')
@@ -22,7 +22,7 @@ test('bcp-47-normalize', function(t) {
       'should ignore trailing stuff in forgiving mode'
     )
 
-    t.test('should emit when given a warning function', function(t) {
+    t.test('should emit when given a warning function', function (t) {
       t.plan(1)
 
       normalize('en-aaa-bbb-ccc-ddd', {warning: warning})
@@ -40,7 +40,7 @@ test('bcp-47-normalize', function(t) {
       }
     })
 
-    t.test('should emit if deprecated tags can’t be fixed', function(t) {
+    t.test('should emit if deprecated tags can’t be fixed', function (t) {
       t.plan(1)
 
       normalize('pap-an', {warning: warning})
@@ -54,7 +54,7 @@ test('bcp-47-normalize', function(t) {
       }
     })
 
-    t.test('should not emit if there are no deprecated tags', function(t) {
+    t.test('should not emit if there are no deprecated tags', function (t) {
       var called = false
 
       t.plan(1)
@@ -71,7 +71,7 @@ test('bcp-47-normalize', function(t) {
     t.end()
   })
 
-  t.test('normalize', function(t) {
+  t.test('normalize', function (t) {
     t.equal(
       normalize('art-lojban'),
       'jbo',
@@ -168,7 +168,7 @@ test('bcp-47-normalize', function(t) {
     t.end()
   })
 
-  t.test('fixtures', function(t) {
+  t.test('fixtures', function (t) {
     var fixtures = {
       afb: 'afb',
       'ar-afb': 'ar-afb',
@@ -256,7 +256,7 @@ test('bcp-47-normalize', function(t) {
       'zh-yue': 'zh-yue'
     }
 
-    Object.keys(fixtures).forEach(from => {
+    Object.keys(fixtures).forEach((from) => {
       var to = fixtures[from]
       t.equal(normalize(from), to, '`' + from + '` -> `' + to + '`')
     })

@@ -13,7 +13,7 @@ var endpoint =
   'https://raw.githubusercontent.com/unicode-org/cldr/master/common/supplemental/supplementalMetadata.xml'
 
 fetch(endpoint)
-  .then(res => res.text())
+  .then((response) => response.text())
   .then(onbody, console.error)
 
 function onbody(doc) {
