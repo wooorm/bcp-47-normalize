@@ -177,7 +177,7 @@ test('bcp-47-normalize', function (t) {
       'az-arab-x-aze-derbend': 'az-Arab-x-aze-derbend',
       'az-latn': 'az',
       'cel-gaulish': 'cel-gaulish',
-      'cmn-hans-cn': 'zh-CN',
+      'cmn-hans-cn': 'zh',
       'de-de-1901': 'de-1901',
       'de-de-x-goethe': 'de-x-goethe',
       'de-deva': 'de-Deva',
@@ -240,9 +240,9 @@ test('bcp-47-normalize', function (t) {
       'sr-latn': 'sr-Latn',
       'sr-qaaa-rs': 'sr-Qaaa-RS',
       'x-whatever': 'x-whatever',
-      'yue-hk': 'yue-HK',
-      'zh-cn-a-myext-x-private': 'zh-CN-a-myext-x-private',
-      'zh-hans-cn': 'zh-CN',
+      'yue-hk': 'yue',
+      'zh-cn-a-myext-x-private': 'zh-a-myext-x-private',
+      'zh-hans-cn': 'zh',
       'zh-hans': 'zh',
       'zh-hant-hk': 'zh-Hant-HK',
       'zh-hant': 'zh-Hant',
@@ -253,7 +253,9 @@ test('bcp-47-normalize', function (t) {
       'zh-min': 'zh-min',
       'zh-xiang': 'hsn',
       'zh-yue-hk': 'zh-yue-Hant-HK',
-      'zh-yue': 'zh-yue'
+      'zh-yue': 'zh-yue',
+      'zh-hans-tw': 'zh-Hans-TW',
+      'zh-tw': 'zh-Hant'
     }
 
     Object.keys(fixtures).forEach((from) => {

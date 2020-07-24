@@ -32,6 +32,9 @@ function onbody(doc) {
 
   visit(fromXml(doc), 'element', onelement)
 
+  // Sort by length first, then alphabetical.
+  defaults.sort(sort)
+
   write('defaults', defaults)
   write('fields', fields)
   write('many', many)
@@ -157,4 +160,8 @@ function write(name, values) {
     path.join('lib', name + '.json'),
     JSON.stringify(values, null, 2) + '\n'
   )
+}
+
+function sort(a, b) {
+  return b.length - a.length || a.localeCompare(b)
 }
