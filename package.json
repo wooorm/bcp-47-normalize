@@ -65,6 +65,7 @@
     "prettier": true,
     "esnext": false,
     "rules": {
+      "unicorn/explicit-length-check": "off",
       "unicorn/prefer-includes": "off",
       "unicorn/prefer-number-properties": "off",
       "unicorn/prefer-set-has": "off"
