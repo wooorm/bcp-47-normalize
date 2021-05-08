@@ -3,6 +3,8 @@
 var test = require('tape')
 var normalize = require('.')
 
+var own = {}.hasOwnProperty
+
 test('bcp-47-normalize', function (t) {
   t.test('basic', function (t) {
     t.equal(normalize(), '', 'should not fail on without a value')
@@ -257,11 +259,15 @@ test('bcp-47-normalize', function (t) {
       'zh-hans-tw': 'zh-Hans-TW',
       'zh-tw': 'zh-Hant'
     }
+    var from
+    var to
 
-    Object.keys(fixtures).forEach((from) => {
-      var to = fixtures[from]
-      t.equal(normalize(from), to, '`' + from + '` -> `' + to + '`')
-    })
+    for (from in fixtures) {
+      if (own.call(fixtures, from)) {
+        to = fixtures[from]
+        t.equal(normalize(from), to, '`' + from + '` -> `' + to + '`')
+      }
+    }
 
     t.end()
   })
