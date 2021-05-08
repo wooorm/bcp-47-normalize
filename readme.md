@@ -103,9 +103,9 @@ regions split into multiple regions).
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/bcp-47-normalize.svg
+[build-badge]: https://github.com/wooorm/bcp-47-normalize/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/wooorm/bcp-47-normalize
+[build]: https://github.com/wooorm/bcp-47-normalize/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/bcp-47-normalize.svg
 
