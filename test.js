@@ -1,7 +1,5 @@
-'use strict'
-
-var test = require('tape')
-var normalize = require('.')
+import test from 'tape'
+import {bcp47Normalize as normalize} from './index.js'
 
 var own = {}.hasOwnProperty
 
@@ -27,7 +25,7 @@ test('bcp-47-normalize', function (t) {
     t.test('should emit when given a warning function', function (t) {
       t.plan(1)
 
-      normalize('en-aaa-bbb-ccc-ddd', {warning: warning})
+      normalize('en-aaa-bbb-ccc-ddd', {warning})
 
       function warning(reason, code, offset) {
         t.deepEqual(
@@ -45,7 +43,7 @@ test('bcp-47-normalize', function (t) {
     t.test('should emit if deprecated tags can’t be fixed', function (t) {
       t.plan(1)
 
-      normalize('pap-an', {warning: warning})
+      normalize('pap-an', {warning})
 
       function warning(reason, code, offset) {
         t.deepEqual(
@@ -61,7 +59,7 @@ test('bcp-47-normalize', function (t) {
 
       t.plan(1)
 
-      normalize('pap-cw', {warning: warning})
+      normalize('pap-cw', {warning})
 
       t.equal(called, false, 'warning')
 

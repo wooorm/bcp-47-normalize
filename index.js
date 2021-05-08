@@ -1,3 +1,1 @@
-'use strict'
-
-module.exports = require('./lib')
+export {bcp47Normalize} from './lib/index.js'

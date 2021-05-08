@@ -1,11 +1,9 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var fetch = require('node-fetch')
-var fromXml = require('xast-util-from-xml')
-var visit = require('unist-util-visit')
-var normalize = require('bcp-47/lib/normalize')
+import fs from 'fs'
+import path from 'path'
+import fetch from 'node-fetch'
+import {fromXml} from 'xast-util-from-xml'
+import {visit} from 'unist-util-visit'
+import {normal} from 'bcp-47/lib/normal.js'
 
 var own = {}.hasOwnProperty
 
@@ -98,7 +96,7 @@ function onbody(doc) {
     }
 
     if (name === 'language') {
-      if (own.call(normalize, from)) {
+      if (own.call(normal, from)) {
         console.warn('Ignoring normalized value: %s -> %s', from, to)
         return
       }
@@ -157,8 +155,8 @@ function clean(value) {
 
 function write(name, values) {
   fs.writeFileSync(
-    path.join('lib', name + '.json'),
-    JSON.stringify(values, null, 2) + '\n'
+    path.join('lib', name + '.js'),
+    'export const ' + name + ' = ' + JSON.stringify(values, null, 2) + '\n'
   )
 }
 

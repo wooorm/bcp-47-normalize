@@ -9,6 +9,9 @@ Normalize, canonicalize, and format [BCP 47][spec] tags.
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -18,7 +21,7 @@ npm install bcp-47-normalize
 ## Use
 
 ```js
-var normalize = require('bcp-47-normalize')
+import {bcp47Normalize} from 'bcp-47-normalize'
 
 var tags = [
   'de-de-1901',
@@ -34,7 +37,7 @@ var tags = [
 ]
 
 tags.forEach(function(tag) {
-  console.log('%s -> %s', tag, normalize(tag))
+  console.log('%s -> %s', tag, bcp47Normalize(tag))
 })
 ```
 
@@ -55,7 +58,10 @@ zh-hans-cn -> zh-CN
 
 ## API
 
-### `normalize(tag[, options])`
+This package exports the following identifiers: `bcp47Normalize`.
+There is no default export.
+
+### `bcp47Normalize(tag[, options])`
 
 Normalize the given BCP 47 tag according to [Unicode CLDR suggestions][alias].
 
