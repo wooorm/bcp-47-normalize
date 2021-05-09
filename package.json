@@ -77,10 +77,6 @@
   "xo": {
     "prettier": true,
     "rules": {
-      "unicorn/explicit-length-check": "off",
-      "unicorn/prefer-includes": "off",
-      "unicorn/prefer-number-properties": "off",
-      "unicorn/prefer-set-has": "off",
       "no-var": "off",
       "prefer-arrow-callback": "off"
     }

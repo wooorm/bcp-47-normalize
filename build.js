@@ -36,12 +36,12 @@ function onbody(doc) {
   var match = []
   var suffix = 'Alias'
   var seenHeploc = false
-  var ignore = [
+  var ignore = new Set([
     // Subdivisions (ISO 3166-2) are not used in BCP 47 tags.
     'subdivision',
     // Timezones.
     'zone'
-  ]
+  ])
 
   visit(fromXml(doc), 'element', onelement)
 
@@ -85,7 +85,7 @@ function onbody(doc) {
       name = 'variants'
     }
 
-    if (ignore.includes(name)) {
+    if (ignore.has(name)) {
       return
     }
 
