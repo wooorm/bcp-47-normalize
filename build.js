@@ -6,8 +6,12 @@
  * @typedef {{from: string, to: string}} Match
  */
 
-import fs from 'fs'
-import path from 'path'
+/** @type {import('fs')} */
+// @ts-expect-error
+import fs from 'node:fs'
+/** @type {import('path')} */
+// @ts-expect-error
+import path from 'node:path'
 import fetch from 'node-fetch'
 import {fromXml} from 'xast-util-from-xml'
 import {visit} from 'unist-util-visit'
