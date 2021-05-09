@@ -15,6 +15,35 @@ import {normal} from 'bcp-47/lib/normal.js'
 
 var own = {}.hasOwnProperty
 
+/** @type {{supplemental: {likelySubtags: Object.<string, string>}}} */
+var data = JSON.parse(
+  String(
+    fs.readFileSync(
+      path.join(
+        'node_modules',
+        'cldr-core',
+        'supplemental',
+        'likelySubtags.json'
+      )
+    )
+  )
+)
+
+var likelySubtags = data.supplemental.likelySubtags
+
+/** @type {Object.<string, string>} */
+var likely = {}
+/** @type {string} */
+var key
+
+for (key in likelySubtags) {
+  if (own.call(likelySubtags, key)) {
+    likely[key.toLowerCase()] = likelySubtags[key].toLowerCase()
+  }
+}
+
+write('likely', likely)
+
 var endpoint =
   'https://raw.githubusercontent.com/unicode-org/cldr/HEAD/common/supplemental/supplementalMetadata.xml'
 
@@ -28,8 +57,6 @@ fetch(endpoint)
 function onbody(doc) {
   /** @type {Array.<Field>} */
   var fields = []
-  /** @type {Array.<string>} */
-  var defaults = []
   /** @type {Object.<string, Object.<string, Array.<string>>>} */
   var many = {}
   /** @type {Array.<Match>} */
@@ -45,10 +72,6 @@ function onbody(doc) {
 
   visit(fromXml(doc), 'element', onelement)
 
-  // Sort by length first, then alphabetical.
-  defaults.sort(sort)
-
-  write('defaults', defaults)
   write('fields', fields)
   write('many', many)
   write('matches', match)
@@ -66,10 +89,6 @@ function onbody(doc) {
     var from
     /** @type {string} */
     var to
-
-    if (name === 'defaultContent') {
-      defaults = defaults.concat(clean(node.attributes.locales))
-    }
 
     if (pos === -1) {
       return
@@ -189,13 +208,4 @@ function write(name, values) {
     path.join('lib', name + '.js'),
     'export const ' + name + ' = ' + JSON.stringify(values, null, 2) + '\n'
   )
-}
-
-/**
- * @param {string} a
- * @param {string} b
- * @returns {number}
- */
-function sort(a, b) {
-  return b.length - a.length || a.localeCompare(b)
 }

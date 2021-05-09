@@ -109,7 +109,7 @@ test('bcp-47-normalize', function (t) {
       'should normalize a deprecated variant'
     )
 
-    t.equal(normalize('pa-pk'), 'pa-Arab', 'should normalize to add a script')
+    t.equal(normalize('pa-pk'), 'pa-PK', 'should normalize to add a script')
 
     t.equal(
       normalize('ha-latn-gh'),
@@ -181,15 +181,15 @@ test('bcp-47-normalize', function (t) {
       'ar-afb': 'ar-afb',
       'art-lojban': 'jbo',
       ast: 'ast',
-      'az-arab-x-aze-derbend': 'az-Arab-x-aze-derbend',
+      'az-arab-x-aze-derbend': 'az-IR-x-aze-derbend',
       'az-latn': 'az',
       'cel-gaulish': 'cel-gaulish',
       'cmn-hans-cn': 'zh',
       'de-de-1901': 'de-1901',
       'de-de-x-goethe': 'de-x-goethe',
       'de-deva': 'de-Deva',
-      'de-deva-de': 'de-Deva-DE',
-      'de-latf-de': 'de-Latf-DE',
+      'de-deva-de': 'de-Deva',
+      'de-latf-de': 'de-Latf',
       'de-ch-x-phonebk': 'de-CH-x-phonebk',
       'de-de-u-co-phonebk': 'de-u-co-phonebk',
       'de-de': 'de',
@@ -199,9 +199,9 @@ test('bcp-47-normalize', function (t) {
       'en-840': 'en',
       'pt-pt': 'pt-PT',
       'pt-br': 'pt',
-      'az-arab-ir': 'az-Arab',
+      'az-arab-ir': 'az-IR',
       'sl-cyrl-yu-rozaj-solba-1994-b-1234-a-Foobar-x-b-1234-a-Foobar':
-        'sl-Cyrl-YU-rozaj-solba-1994-a-foobar-b-1234-x-b-1234-a-foobar',
+        'sl-Cyrl-YU-1994-rozaj-solba-a-foobar-b-1234-x-b-1234-a-foobar',
       'en-gb-oed': 'en-GB-oxendict',
       'en-us-u-islamcal': 'en-u-islamcal',
       'en-us': 'en',
@@ -239,30 +239,33 @@ test('bcp-47-normalize', function (t) {
       'sgn-ch-de': 'sgg',
       'sl-it-nedis': 'sl-IT-nedis',
       'sl-nedis': 'sl-nedis',
-      'sl-rozaj-biske': 'sl-rozaj-biske',
+      'sl-rozaj-biske': 'sl-biske-rozaj',
       'sl-rozaj': 'sl-rozaj',
       'sr-cyrl': 'sr',
       'sr-latn-qm': 'sr-Latn-QM',
       'sr-latn-rs': 'sr-Latn',
       'sr-latn': 'sr-Latn',
-      'sr-qaaa-rs': 'sr-Qaaa-RS',
+      'sr-qaaa-rs': 'sr-Qaaa',
+      und: 'en',
+      'und-GB': 'en-GB',
+      'und-arab-cc': 'ms-CC',
       'x-whatever': 'x-whatever',
       'yue-hk': 'yue',
       'zh-cn-a-myext-x-private': 'zh-a-myext-x-private',
       'zh-hans-cn': 'zh',
       'zh-hans': 'zh',
-      'zh-hant-hk': 'zh-Hant-HK',
-      'zh-hant': 'zh-Hant',
-      'zh-cmn-hans-cn': 'zh-cmn-Hans-CN',
+      'zh-hant-hk': 'zh-HK',
+      'zh-hant': 'zh-TW',
+      'zh-cmn-hans-cn': 'zh',
       'zh-guoyu': 'zh',
       'zh-hakka': 'hak',
       'zh-min-nan': 'nan',
       'zh-min': 'zh-min',
       'zh-xiang': 'hsn',
-      'zh-yue-hk': 'zh-yue-Hant-HK',
-      'zh-yue': 'zh-yue',
+      'zh-yue-hk': 'yue',
+      'zh-yue': 'yue',
       'zh-hans-tw': 'zh-Hans-TW',
-      'zh-tw': 'zh-Hant'
+      'zh-tw': 'zh-TW'
     }
     /** @type {string} */
     var from

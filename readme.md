@@ -36,7 +36,7 @@ var tags = [
   'zh-hans-cn'
 ]
 
-tags.forEach(function(tag) {
+tags.forEach(function (tag) {
   console.log('%s -> %s', tag, bcp47Normalize(tag))
 })
 ```
@@ -53,7 +53,7 @@ nld-nl -> nl
 no-nyn -> nn
 pt-br -> pt
 pt-pt -> pt-PT
-zh-hans-cn -> zh-CN
+zh-hans-cn -> zh
 ```
 
 ## API
