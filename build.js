@@ -1,3 +1,11 @@
+/**
+ * @typedef {import('xast').Element} Element
+ *
+ * @typedef {{field: string, value: string}} FromTuple
+ * @typedef {{from: FromTuple, to: FromTuple}} Field
+ * @typedef {{from: string, to: string}} Match
+ */
+
 import fs from 'fs'
 import path from 'path'
 import fetch from 'node-fetch'
@@ -14,11 +22,18 @@ fetch(endpoint)
   .then((response) => response.text())
   .then(onbody, console.error)
 
+/**
+ * @param {string} doc
+ */
 function onbody(doc) {
+  /** @type {Array.<Field>} */
   var fields = []
-  var match = []
+  /** @type {Array.<string>} */
   var defaults = []
+  /** @type {Object.<string, Object.<string, Array.<string>>>} */
   var many = {}
+  /** @type {Array.<Match>} */
+  var match = []
   var suffix = 'Alias'
   var seenHeploc = false
   var ignore = [
@@ -38,11 +53,18 @@ function onbody(doc) {
   write('many', many)
   write('matches', match)
 
+  /** @type {import('unist-util-visit').Visitor<Element>} */
   /* eslint-disable-next-line complexity */
   function onelement(node) {
     var name = node.name
     var pos = name.indexOf(suffix)
+    /** @type {Array.<string>} */
+    var allFrom
+    /** @type {Array.<string>} */
+    var allTo
+    /** @type {string} */
     var from
+    /** @type {string} */
     var to
 
     if (name === 'defaultContent') {
@@ -67,27 +89,27 @@ function onbody(doc) {
       return
     }
 
-    from = clean(node.attributes.type)
-    to = clean(node.attributes.replacement)
+    allFrom = clean(node.attributes.type)
+    allTo = clean(node.attributes.replacement)
 
-    if (from.length === 1) {
-      from = from[0]
+    if (allFrom.length === 1) {
+      from = allFrom[0]
     } else {
-      throw new Error('Cannot map from many: ' + from)
+      throw new Error('Cannot map from many: ' + allFrom)
     }
 
-    if (to.length === 1) {
-      to = to[0]
+    if (allTo.length === 1) {
+      to = allTo[0]
     } else {
       if (!many[name]) {
         many[name] = {}
       }
 
-      many[name][from] = to
+      many[name][from] = allTo
       return
     }
 
-    if (name === 'region' && from.length === 3 && isNaN(from)) {
+    if (name === 'region' && from.length === 3 && Number.isNaN(Number(from))) {
       console.log(
         'ISO 3166-1 alpha 3 codes cannot be represented in BCP 47: %s',
         from
@@ -144,6 +166,10 @@ function onbody(doc) {
   }
 }
 
+/**
+ * @param {string} value
+ * @returns {Array.<string>}
+ */
 function clean(value) {
   return value
     .toLowerCase()
@@ -153,6 +179,11 @@ function clean(value) {
     .split(' ')
 }
 
+/**
+ * @param {string} name
+ * @param {unknown} values
+ * @returns {void}
+ */
 function write(name, values) {
   fs.writeFileSync(
     path.join('lib', name + '.js'),
@@ -160,6 +191,11 @@ function write(name, values) {
   )
 }
 
+/**
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
 function sort(a, b) {
   return b.length - a.length || a.localeCompare(b)
 }

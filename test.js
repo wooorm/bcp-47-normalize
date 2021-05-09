@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('bcp-47/lib/parse.js').ParseOptions['warning']} Warning
+ */
+
 import test from 'tape'
 import {bcp47Normalize as normalize} from './index.js'
 
@@ -5,6 +9,7 @@ var own = {}.hasOwnProperty
 
 test('bcp-47-normalize', function (t) {
   t.test('basic', function (t) {
+    // @ts-ignore runtime.
     t.equal(normalize(), '', 'should not fail on without a value')
     t.equal(normalize(''), '', 'should not fail on an empty string')
     t.equal(normalize('en-us'), 'en', 'should normalize')
@@ -27,6 +32,7 @@ test('bcp-47-normalize', function (t) {
 
       normalize('en-aaa-bbb-ccc-ddd', {warning})
 
+      /** @type {Warning} */
       function warning(reason, code, offset) {
         t.deepEqual(
           [reason, code, offset],
@@ -45,6 +51,7 @@ test('bcp-47-normalize', function (t) {
 
       normalize('pap-an', {warning})
 
+      /** @type {Warning} */
       function warning(reason, code, offset) {
         t.deepEqual(
           [reason, code, offset],
@@ -257,7 +264,9 @@ test('bcp-47-normalize', function (t) {
       'zh-hans-tw': 'zh-Hans-TW',
       'zh-tw': 'zh-Hant'
     }
+    /** @type {string} */
     var from
+    /** @type {string} */
     var to
 
     for (from in fixtures) {
