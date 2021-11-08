@@ -5,7 +5,7 @@
 import test from 'tape'
 import {bcp47Normalize as normalize} from './index.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 test('bcp-47-normalize', function (t) {
   t.test('basic', function (t) {
@@ -62,7 +62,7 @@ test('bcp-47-normalize', function (t) {
     })
 
     t.test('should not emit if there are no deprecated tags', function (t) {
-      var called = false
+      let called = false
 
       t.plan(1)
 
@@ -176,7 +176,8 @@ test('bcp-47-normalize', function (t) {
   })
 
   t.test('fixtures', function (t) {
-    var fixtures = {
+    /** @type {Record<string, string>} */
+    const fixtures = {
       afb: 'afb',
       'ar-afb': 'ar-afb',
       'art-lojban': 'jbo',
@@ -268,13 +269,11 @@ test('bcp-47-normalize', function (t) {
       'zh-tw': 'zh-TW'
     }
     /** @type {string} */
-    var from
-    /** @type {string} */
-    var to
+    let from
 
     for (from in fixtures) {
       if (own.call(fixtures, from)) {
-        to = fixtures[from]
+        const to = fixtures[from]
         t.equal(normalize(from), to, '`' + from + '` -> `' + to + '`')
       }
     }

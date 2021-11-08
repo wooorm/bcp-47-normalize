@@ -23,7 +23,7 @@ npm install bcp-47-normalize
 ```js
 import {bcp47Normalize} from 'bcp-47-normalize'
 
-var tags = [
+const tags = [
   'de-de-1901',
   'en-gb',
   'en-us',
@@ -36,9 +36,7 @@ var tags = [
   'zh-hans-cn'
 ]
 
-tags.forEach(function (tag) {
-  console.log('%s -> %s', tag, bcp47Normalize(tag))
-})
+tags.forEach((tag) => console.log('%s -> %s', tag, bcp47Normalize(tag)))
 ```
 
 Yields:

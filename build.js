@@ -13,10 +13,10 @@ import {fromXml} from 'xast-util-from-xml'
 import {visit} from 'unist-util-visit'
 import {normal} from 'bcp-47/lib/normal.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 /** @type {{supplemental: {likelySubtags: Object.<string, string>}}} */
-var data = JSON.parse(
+const data = JSON.parse(
   String(
     fs.readFileSync(
       path.join(
@@ -29,12 +29,12 @@ var data = JSON.parse(
   )
 )
 
-var likelySubtags = data.supplemental.likelySubtags
+const likelySubtags = data.supplemental.likelySubtags
 
 /** @type {Object.<string, string>} */
-var likely = {}
+const likely = {}
 /** @type {string} */
-var key
+let key
 
 for (key in likelySubtags) {
   if (own.call(likelySubtags, key)) {
@@ -44,7 +44,7 @@ for (key in likelySubtags) {
 
 write('likely', likely)
 
-var endpoint =
+const endpoint =
   'https://raw.githubusercontent.com/unicode-org/cldr/HEAD/common/supplemental/supplementalMetadata.xml'
 
 fetch(endpoint)
@@ -56,14 +56,14 @@ fetch(endpoint)
  */
 function onbody(doc) {
   /** @type {Array.<Field>} */
-  var fields = []
+  const fields = []
   /** @type {Object.<string, Object.<string, Array.<string>>>} */
-  var many = {}
+  const many = {}
   /** @type {Array.<Match>} */
-  var match = []
-  var suffix = 'Alias'
-  var seenHeploc = false
-  var ignore = new Set([
+  const match = []
+  const suffix = 'Alias'
+  let seenHeploc = false
+  const ignore = new Set([
     // Subdivisions (ISO 3166-2) are not used in BCP 47 tags.
     'subdivision',
     // Timezones.
@@ -79,16 +79,8 @@ function onbody(doc) {
   /** @param {Element} node */
   /* eslint-disable-next-line complexity */
   function onelement(node) {
-    var name = node.name
-    var pos = name.indexOf(suffix)
-    /** @type {Array.<string>} */
-    var allFrom
-    /** @type {Array.<string>} */
-    var allTo
-    /** @type {string} */
-    var from
-    /** @type {string} */
-    var to
+    let name = node.name
+    const pos = name.indexOf(suffix)
 
     if (pos === -1) {
       return
@@ -108,8 +100,12 @@ function onbody(doc) {
       return
     }
 
-    allFrom = clean(node.attributes.type)
-    allTo = clean(node.attributes.replacement)
+    const allFrom = clean(node.attributes.type)
+    const allTo = clean(node.attributes.replacement)
+    /** @type {string} */
+    let from
+    /** @type {string} */
+    let to
 
     if (allFrom.length === 1) {
       from = allFrom[0]
