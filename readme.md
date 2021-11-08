@@ -7,15 +7,55 @@
 
 Normalize, canonicalize, and format [BCP 47][spec] tags.
 
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`bcp47Normalize(tag[, options])`](#bcp47normalizetag-options)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package takes BCP 47 tags and makes them uniform.
+It removes unneeded info (`en-us` -> `en`) and replaces deprecated,
+overlong, and otherwise unpreferred values with preferred values
+(`en-bu` -> `en-MM`).
+It works by applying [Unicode CLDR suggestions][alias].
+
+## When should I use this?
+
+You can use this package when dealing with user-provided language tags and want
+to normalize and clean them.
+
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install bcp-47-normalize
+```
+
+In Deno with [Skypack][]:
+
+```js
+import {bcp47Normalize} from 'https://cdn.skypack.dev/bcp-47-normalize@2?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import {bcp47Normalize} from 'https://cdn.skypack.dev/bcp-47-normalize@2?min'
+</script>
 ```
 
 ## Use
@@ -56,50 +96,72 @@ zh-hans-cn -> zh
 
 ## API
 
-This package exports the following identifiers: `bcp47Normalize`.
+This package exports the following identifier: `bcp47Normalize`.
 There is no default export.
 
 ### `bcp47Normalize(tag[, options])`
 
 Normalize the given BCP 47 tag according to [Unicode CLDR suggestions][alias].
 
-###### `options.forgiving`
+###### Parameters
 
-Passed to `bcp-47` as [`options.forgiving`][forgiving].
+*   `tag` (`string`)
+    — BCP 47 tag
+*   `options.forgiving` (`boolean`, default: `false`)
+    — passed to `bcp-47` as [`options.forgiving`][forgiving]
+*   `options.warning` (`Function?`, default: `undefined`)
+    — passed to `bcp-47` as [`options.warning`][warning]
 
-###### `options.warning`
+    One additional warning is given:
 
-Passed to `bcp-47` as [`options.warning`][warning].
+    | code | reason                                                     |
+    | :--- | :--------------------------------------------------------- |
+    | 7    | Deprecated region `CURRENT`, expected one of `SUGGESTIONS` |
 
-One additional warning is given:
-
-| code | reason                                                     |
-| :--- | :--------------------------------------------------------- |
-| 7    | Deprecated region `CURRENT`, expected one of `SUGGESTIONS` |
-
-This warning is only given if the region cannot be automatically fixed (when
-regions split into multiple regions).
+    This warning is only given if the region cannot be automatically fixed (when
+    regions split into multiple regions).
 
 ###### Returns
 
-`string` — Normal, canonical, and pretty [BCP 47][spec] tag.
+Normal, canonical, and pretty [BCP 47][spec] tag (`string`).
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports additional `Options` and `Warning` types that model their respective
+interfaces.
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+It also works in Deno and modern browsers.
+
+## Security
+
+This package is safe.
 
 ## Related
 
-*   [`bcp-47`](https://github.com/wooorm/bcp-47-match)
-    — Parse and stringify BCP 47 language tags
-*   [`bcp-47-match`](https://github.com/wooorm/bcp-47-match)
-    — Match BCP 47 language tags with language ranges per RFC 4647
-*   [`iso-3166`](https://github.com/wooorm/iso-3166)
+*   [`wooorm/bcp-47`](https://github.com/wooorm/bcp-47-match)
+    — parse and stringify BCP 47 language tags
+*   [`wooorm/bcp-47-match`](https://github.com/wooorm/bcp-47-match)
+    — match BCP 47 language tags with language ranges per RFC 4647
+*   [`wooorm/iso-3166`](https://github.com/wooorm/iso-3166)
     — ISO 3166 codes
-*   [`iso-639-2`](https://github.com/wooorm/iso-639-2)
+*   [`wooorm/iso-639-2`](https://github.com/wooorm/iso-639-2)
     — ISO 639-2 codes
-*   [`iso-639-3`](https://github.com/wooorm/iso-639-3)
+*   [`wooorm/iso-639-3`](https://github.com/wooorm/iso-639-3)
     — ISO 639-3 codes
-*   [`iso-15924`](https://github.com/wooorm/iso-15924)
+*   [`wooorm/iso-15924`](https://github.com/wooorm/iso-15924)
     — ISO 15924 codes
-*   [`un-m49`](https://github.com/wooorm/un-m49)
+*   [`wooorm/un-m49`](https://github.com/wooorm/un-m49)
     — UN M49 codes
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
 
 ## License
 
@@ -125,13 +187,21 @@ regions split into multiple regions).
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[spec]: https://tools.ietf.org/html/bcp47
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[alias]: https://github.com/unicode-org/cldr/blob/4b1225ead2ca9bc7a969a271b9931f137040d2bf/common/supplemental/supplementalMetadata.xml#L32
+[typescript]: https://www.typescriptlang.org
+
+[contribute]: https://opensource.guide/how-to-contribute/
+
+[spec]: https://tools.ietf.org/rfc/bcp/bcp47.html
+
+[alias]: https://github.com/unicode-org/cldr/blob/142b327/common/supplemental/supplementalMetadata.xml#L32
 
 [forgiving]: https://github.com/wooorm/bcp-47#optionsforgiving
 
