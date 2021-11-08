@@ -1,5 +1,5 @@
 /**
- * @typedef {import('bcp-47/lib/parse.js').ParseOptions['warning']} Warning
+ * @typedef {import('bcp-47').Warning} Warning
  */
 
 import test from 'tape'
@@ -9,7 +9,7 @@ const own = {}.hasOwnProperty
 
 test('bcp-47-normalize', function (t) {
   t.test('basic', function (t) {
-    // @ts-ignore runtime.
+    // @ts-expect-error runtime.
     t.equal(normalize(), '', 'should not fail on without a value')
     t.equal(normalize(''), '', 'should not fail on an empty string')
     t.equal(normalize('en-us'), 'en', 'should normalize')
@@ -55,7 +55,7 @@ test('bcp-47-normalize', function (t) {
       function warning(reason, code, offset) {
         t.deepEqual(
           [reason, code, offset],
-          ['Deprecated region `an`, expected one of `cw`, `sx`, `bq`', null, 7],
+          ['Deprecated region `an`, expected one of `cw`, `sx`, `bq`', -1, 7],
           'warning'
         )
       }

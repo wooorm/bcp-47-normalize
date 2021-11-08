@@ -15,7 +15,7 @@ import {normal} from 'bcp-47/lib/normal.js'
 
 const own = {}.hasOwnProperty
 
-/** @type {{supplemental: {likelySubtags: Object.<string, string>}}} */
+/** @type {{supplemental: {likelySubtags: Record<string, string>}}} */
 const data = JSON.parse(
   String(
     fs.readFileSync(
@@ -31,7 +31,7 @@ const data = JSON.parse(
 
 const likelySubtags = data.supplemental.likelySubtags
 
-/** @type {Object.<string, string>} */
+/** @type {Record<string, string>} */
 const likely = {}
 /** @type {string} */
 let key
@@ -42,7 +42,16 @@ for (key in likelySubtags) {
   }
 }
 
-write('likely', likely)
+fs.writeFileSync(
+  path.join('lib', 'likely.js'),
+  [
+    '/**',
+    ' * @type {Record<string, string>}',
+    ' */',
+    'export const likely = ' + JSON.stringify(likely, null, 2),
+    ''
+  ].join('\n')
+)
 
 const endpoint =
   'https://raw.githubusercontent.com/unicode-org/cldr/HEAD/common/supplemental/supplementalMetadata.xml'
@@ -55,11 +64,11 @@ fetch(endpoint)
  * @param {string} doc
  */
 function onbody(doc) {
-  /** @type {Array.<Field>} */
+  /** @type {Array<Field>} */
   const fields = []
-  /** @type {Object.<string, Object.<string, Array.<string>>>} */
+  /** @type {Record<string, Record<string, Array<string>>>} */
   const many = {}
-  /** @type {Array.<Match>} */
+  /** @type {Array<Match>} */
   const match = []
   const suffix = 'Alias'
   let seenHeploc = false
@@ -72,14 +81,66 @@ function onbody(doc) {
 
   visit(fromXml(doc), 'element', onelement)
 
-  write('fields', fields)
-  write('many', many)
-  write('matches', match)
+  fs.writeFileSync(
+    path.join('lib', 'fields.js'),
+    [
+      '/**',
+      " * @typedef {'script'|'region'|'variants'} Field",
+      ' *',
+      ' * @typedef AddOrRemove',
+      ' * @property {Field} field',
+      ' * @property {string} value',
+      ' *',
+      ' * @typedef Change',
+      ' * @property {AddOrRemove} from',
+      ' * @property {AddOrRemove} to',
+      ' */',
+      '',
+      '/**',
+      ' * @type {Array<Change>}',
+      ' */',
+      'export const fields = ' + JSON.stringify(fields, null, 2),
+      ''
+    ].join('\n')
+  )
+
+  fs.writeFileSync(
+    path.join('lib', 'many.js'),
+    [
+      '/**',
+      " * @typedef {'script'|'region'|'variants'} Field",
+      ' */',
+      '',
+      '/**',
+      ' * @type {{region: Record<string, Array<string>>}}',
+      ' */',
+      'export const many = ' + JSON.stringify(many, null, 2),
+      ''
+    ].join('\n')
+  )
+
+  fs.writeFileSync(
+    path.join('lib', 'matches.js'),
+    [
+      '/**',
+      ' * @typedef Change',
+      ' * @property {string} from',
+      ' * @property {string} to',
+      ' */',
+      '',
+      '/**',
+      ' * @type {Array<Change>}',
+      ' */',
+      'export const matches = ' + JSON.stringify(match, null, 2),
+      ''
+    ].join('\n')
+  )
 
   /** @param {Element} node */
   /* eslint-disable-next-line complexity */
   function onelement(node) {
     let name = node.name
+    const attributes = node.attributes || {}
     const pos = name.indexOf(suffix)
 
     if (pos === -1) {
@@ -100,8 +161,8 @@ function onbody(doc) {
       return
     }
 
-    const allFrom = clean(node.attributes.type)
-    const allTo = clean(node.attributes.replacement)
+    const allFrom = clean(attributes.type)
+    const allTo = clean(attributes.replacement)
     /** @type {string} */
     let from
     /** @type {string} */
@@ -182,26 +243,14 @@ function onbody(doc) {
 }
 
 /**
- * @param {string} value
- * @returns {Array.<string>}
+ * @param {string|null|undefined} value
+ * @returns {Array<string>}
  */
 function clean(value) {
-  return value
+  return String(value || '')
     .toLowerCase()
     .replace(/_/g, '-')
     .replace(/\s+/g, ' ')
     .trim()
     .split(' ')
-}
-
-/**
- * @param {string} name
- * @param {unknown} values
- * @returns {void}
- */
-function write(name, values) {
-  fs.writeFileSync(
-    path.join('lib', name + '.js'),
-    'export const ' + name + ' = ' + JSON.stringify(values, null, 2) + '\n'
-  )
 }
