@@ -6,11 +6,7 @@
  * @typedef {{from: string, to: string}} Match
  */
 
-/** @type {import('fs')} */
-// @ts-expect-error
 import fs from 'node:fs'
-/** @type {import('path')} */
-// @ts-expect-error
 import path from 'node:path'
 import fetch from 'node-fetch'
 import {fromXml} from 'xast-util-from-xml'
@@ -80,7 +76,7 @@ function onbody(doc) {
   write('many', many)
   write('matches', match)
 
-  /** @type {import('unist-util-visit').Visitor<Element>} */
+  /** @param {Element} node */
   /* eslint-disable-next-line complexity */
   function onelement(node) {
     var name = node.name
