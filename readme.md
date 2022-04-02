@@ -44,17 +44,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install bcp-47-normalize
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {bcp47Normalize} from 'https://cdn.skypack.dev/bcp-47-normalize@2?dts'
+import {bcp47Normalize} from 'https://esm.sh/bcp-47-normalize@2'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {bcp47Normalize} from 'https://cdn.skypack.dev/bcp-47-normalize@2?min'
+  import {bcp47Normalize} from 'https://esm.sh/bcp-47-normalize@2?bundle'
 </script>
 ```
 
@@ -187,7 +187,7 @@ See [How to Contribute to Open Source][contribute].
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [license]: license
 
