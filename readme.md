@@ -143,7 +143,7 @@ This package is safe.
 
 ## Related
 
-*   [`wooorm/bcp-47`](https://github.com/wooorm/bcp-47-match)
+*   [`wooorm/bcp-47`](https://github.com/wooorm/bcp-47)
     — parse and stringify BCP 47 language tags
 *   [`wooorm/bcp-47-match`](https://github.com/wooorm/bcp-47-match)
     — match BCP 47 language tags with language ranges per RFC 4647
