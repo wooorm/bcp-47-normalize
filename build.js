@@ -6,8 +6,7 @@
  * @typedef {{from: string, to: string}} Match
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'node:fs/promises'
 import fetch from 'node-fetch'
 import {fromXml} from 'xast-util-from-xml'
 import {visit} from 'unist-util-visit'
@@ -18,12 +17,10 @@ const own = {}.hasOwnProperty
 /** @type {{supplemental: {likelySubtags: Record<string, string>}}} */
 const data = JSON.parse(
   String(
-    fs.readFileSync(
-      path.join(
-        'node_modules',
-        'cldr-core',
-        'supplemental',
-        'likelySubtags.json'
+    await fs.readFile(
+      new URL(
+        'node_modules/cldr-core/supplemental/likelySubtags.json',
+        import.meta.url
       )
     )
   )
@@ -42,8 +39,8 @@ for (key in likelySubtags) {
   }
 }
 
-fs.writeFileSync(
-  path.join('lib', 'likely.js'),
+await fs.writeFile(
+  new URL('lib/likely.js', import.meta.url),
   [
     '/**',
     ' * @type {Record<string, string>}',
@@ -76,8 +73,8 @@ const ignore = new Set([
 
 visit(fromXml(text), 'element', onelement)
 
-fs.writeFileSync(
-  path.join('lib', 'fields.js'),
+await fs.writeFile(
+  new URL('lib/fields.js', import.meta.url),
   [
     '/**',
     " * @typedef {'script'|'region'|'variants'} Field",
@@ -99,8 +96,8 @@ fs.writeFileSync(
   ].join('\n')
 )
 
-fs.writeFileSync(
-  path.join('lib', 'many.js'),
+await fs.writeFile(
+  new URL('lib/many.js', import.meta.url),
   [
     '/**',
     " * @typedef {'script'|'region'|'variants'} Field",
@@ -114,8 +111,8 @@ fs.writeFileSync(
   ].join('\n')
 )
 
-fs.writeFileSync(
-  path.join('lib', 'matches.js'),
+await fs.writeFile(
+  new URL('lib/matches.js', import.meta.url),
   [
     '/**',
     ' * @typedef Change',
