@@ -71,6 +71,7 @@ const ignore = new Set([
   'zone'
 ])
 
+// @ts-expect-error: types are wrong?
 visit(fromXml(text), 'element', onelement)
 
 await fs.writeFile(
@@ -240,8 +241,8 @@ function onelement(node) {
 function clean(value) {
   return String(value || '')
     .toLowerCase()
-    .replace(/_/g, '-')
-    .replace(/\s+/g, ' ')
+    .replaceAll('_', '-')
+    .replaceAll(/\s+/g, ' ')
     .trim()
     .split(' ')
 }
