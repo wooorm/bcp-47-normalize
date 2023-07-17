@@ -220,6 +220,7 @@ test('fixtures', function () {
     'en-us': 'en',
     'en-gb': 'en-GB',
     'en-us-x-twain': 'en-x-twain',
+    'en-a-ext1-a-ext2': 'en-a-ext1-a-ext2',
     'en-a-myext-b-another': 'en-a-myext-b-another',
     'en-bu': 'en-MM',
     en: 'en',
