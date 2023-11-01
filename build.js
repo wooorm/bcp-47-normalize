@@ -71,7 +71,6 @@ const ignore = new Set([
   'zone'
 ])
 
-// @ts-expect-error: types are wrong?
 visit(fromXml(text), 'element', onelement)
 
 await fs.writeFile(
