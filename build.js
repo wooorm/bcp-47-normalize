@@ -55,7 +55,7 @@
 import fs from 'node:fs/promises'
 import {fromXml} from 'xast-util-from-xml'
 import {visit} from 'unist-util-visit'
-import {normal} from 'bcp-47/lib/normal.js'
+import {parse} from 'bcp-47'
 
 const own = {}.hasOwnProperty
 
@@ -253,7 +253,9 @@ function onelement(node) {
   }
 
   if (name === 'language') {
-    if (own.call(normal, from)) {
+    const schema = parse(from, {normalize: false})
+
+    if (schema.irregular || schema.regular) {
       console.warn('Ignoring normalized value: %s -> %s', from, to)
       return
     }
