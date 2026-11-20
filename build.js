@@ -1,9 +1,26 @@
 /**
  * @typedef {import('xast').Element} Element
  *
- * @typedef {{field: string, value: string}} FromTuple
- * @typedef {{from: FromTuple, to: FromTuple}} Field
- * @typedef {{from: string, to: string}} Match
+ * @typedef AddOrRemove
+ *   Field and value.
+ * @property {string} field
+ *   Field (such as `region`).
+ * @property {string} value
+ *   Value.
+ *
+ * @typedef FieldChange
+ *   Change of a field.
+ * @property {AddOrRemove} from
+ *   Field and value to remove.
+ * @property {AddOrRemove} to
+ *   Field and value to add.
+ *
+ * @typedef TagChange
+ *   Change of a tag.
+ * @property {string} from
+ *   Tag to match.
+ * @property {string} to
+ *   Tag to replace with.
  */
 
 import fs from 'node:fs/promises'
@@ -64,11 +81,11 @@ if (!response.ok) {
 
 const text = await response.text()
 
-/** @type {Array<Field>} */
+/** @type {Array<FieldChange>} */
 const fields = []
 /** @type {Record<string, Record<string, Array<string>>>} */
 const many = {}
-/** @type {Array<Match>} */
+/** @type {Array<TagChange>} */
 const match = []
 const suffix = 'Alias'
 let seenHeploc = false
@@ -85,15 +102,18 @@ await fs.writeFile(
   new URL('lib/fields.js', import.meta.url),
   [
     '/**',
-    " * @typedef {'script'|'region'|'variants'} Field",
+    " * @typedef {'language' | 'region' | 'script' | 'variants'} Field",
+    ' *   Field.',
     ' *',
     ' * @typedef AddOrRemove',
+    ' *   Field and value.',
     ' * @property {Field} field',
     ' *   Field.',
     ' * @property {string} value',
     ' *   Value.',
     ' *',
-    ' * @typedef Change',
+    ' * @typedef FieldChange',
+    ' *   Change of a field.',
     ' * @property {AddOrRemove} from',
     ' *   Field and value to remove.',
     ' * @property {AddOrRemove} to',
@@ -101,7 +121,7 @@ await fs.writeFile(
     ' */',
     '',
     '/**',
-    ' * @type {Array<Change>}',
+    ' * @type {Array<FieldChange>}',
     ' */',
     'export const fields = ' + JSON.stringify(fields, null, 2),
     ''
@@ -111,10 +131,6 @@ await fs.writeFile(
 await fs.writeFile(
   new URL('lib/many.js', import.meta.url),
   [
-    '/**',
-    " * @typedef {'script'|'region'|'variants'} Field",
-    ' */',
-    '',
     '/**',
     ' * @type {{region: Record<string, Array<string>>}}',
     ' */',
@@ -127,7 +143,8 @@ await fs.writeFile(
   new URL('lib/matches.js', import.meta.url),
   [
     '/**',
-    ' * @typedef Change',
+    ' * @typedef TagChange',
+    ' *   Change of a tag.',
     ' * @property {string} from',
     ' *   Tag to match.',
     ' * @property {string} to',
@@ -135,7 +152,7 @@ await fs.writeFile(
     ' */',
     '',
     '/**',
-    ' * @type {Array<Change>}',
+    ' * @type {Array<TagChange>}',
     ' */',
     'export const matches = ' + JSON.stringify(match, null, 2),
     ''
