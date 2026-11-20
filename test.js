@@ -1,5 +1,5 @@
 /**
- * @typedef {import('bcp-47').Warning} Warning
+ * @import {Warning} from 'bcp-47'
  */
 
 import assert from 'node:assert/strict'

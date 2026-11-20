@@ -1,20 +1,49 @@
 /**
- * @typedef {import('xast').Element} Element
- *
+ * @import {Element} from 'xast'
+ */
+
+/**
  * @typedef AddOrRemove
  *   Field and value.
  * @property {string} field
  *   Field (such as `region`).
  * @property {string} value
  *   Value.
- *
+ */
+
+/**
  * @typedef FieldChange
  *   Change of a field.
  * @property {AddOrRemove} from
  *   Field and value to remove.
  * @property {AddOrRemove} to
  *   Field and value to add.
- *
+ */
+
+/**
+ * @typedef LikelySubtagsData
+ *   Data in `cldr-core/supplemental/likelySubtags.json`.
+ * @property {LikelySubtagsSupplemental} supplemental
+ *   Likely subtags and version info.
+ */
+
+/**
+ * @typedef LikelySubtagsSupplemental
+ *   Likely subtags and version info.
+ * @property {Record<string, string>} likelySubtags
+ *   Map of tags to their likely tags.
+ * @property {LikelySubtagsVersion} version
+ *   Version info.
+ */
+
+/**
+ * @typedef LikelySubtagsVersion
+ *   Version in `cldr-core/supplemental/likelySubtags.json`.
+ * @property {string} _cldrVersion
+ *   CLDR version (such as `'49'`).
+ */
+
+/**
  * @typedef TagChange
  *   Change of a tag.
  * @property {string} from
@@ -30,7 +59,7 @@ import {normal} from 'bcp-47/lib/normal.js'
 
 const own = {}.hasOwnProperty
 
-/** @type {{supplemental: {likelySubtags: Record<string, string>, version: {_cldrVersion: string}}}} */
+/** @type {LikelySubtagsData} */
 const data = JSON.parse(
   String(
     await fs.readFile(
