@@ -7,7 +7,6 @@
  */
 
 import fs from 'node:fs/promises'
-import fetch from 'node-fetch'
 import {fromXml} from 'xast-util-from-xml'
 import {visit} from 'unist-util-visit'
 import {normal} from 'bcp-47/lib/normal.js'
