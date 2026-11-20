@@ -34,7 +34,11 @@ test('bcp-47-normalize (basic)', async function (t) {
 
     assert.equal(called, true, 'should call')
 
-    /** @type {Warning} */
+    /**
+     * Check a warning.
+     *
+     * @type {Warning}
+     */
     function warning(reason, code, offset) {
       assert.deepEqual(
         [reason, code, offset],
@@ -56,7 +60,11 @@ test('bcp-47-normalize (basic)', async function (t) {
 
     assert.equal(called, true, 'warning')
 
-    /** @type {Warning} */
+    /**
+     * Check a warning.
+     *
+     * @type {Warning}
+     */
     function warning(reason, code, offset) {
       assert.deepEqual(
         [reason, code, offset],
@@ -74,6 +82,11 @@ test('bcp-47-normalize (basic)', async function (t) {
 
     assert.equal(called, false, 'warning')
 
+    /**
+     * Track that a warning was emitted.
+     *
+     * @type {Warning}
+     */
     function warning() {
       called = true
     }

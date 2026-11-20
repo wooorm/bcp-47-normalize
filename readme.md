@@ -9,18 +9,18 @@ Normalize, canonicalize, and format [BCP 47][spec] tags.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`bcp47Normalize(tag[, options])`](#bcp47normalizetag-options)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`bcp47Normalize(tag[, options])`](#bcp47normalizetag-options)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -81,7 +81,7 @@ tags.forEach((tag) => console.log('%s -> %s', tag, bcp47Normalize(tag)))
 
 Yields:
 
-```txt
+```text
 de-de-1901 -> de-1901
 en-gb -> en-GB
 en-us -> en
@@ -105,21 +105,21 @@ Normalize the given BCP 47 tag according to [Unicode CLDR suggestions][alias].
 
 ###### Parameters
 
-*   `tag` (`string`)
-    — BCP 47 tag
-*   `options.forgiving` (`boolean`, default: `false`)
-    — passed to `bcp-47` as [`options.forgiving`][forgiving]
-*   `options.warning` (`Function?`, default: `undefined`)
-    — passed to `bcp-47` as [`options.warning`][warning]
+* `tag` (`string`)
+  — BCP 47 tag
+* `options.forgiving` (`boolean`, default: `false`)
+  — passed to `bcp-47` as [`options.forgiving`][forgiving]
+* `options.warning` (`Function?`, default: `undefined`)
+  — passed to `bcp-47` as [`options.warning`][warning]
 
-    One additional warning is given:
+  One additional warning is given:
 
-    | code | reason                                                     |
-    | :--- | :--------------------------------------------------------- |
-    | 7    | Deprecated region `CURRENT`, expected one of `SUGGESTIONS` |
+  | code | reason                                                     |
+  | :--- | :--------------------------------------------------------- |
+  | 7    | Deprecated region `CURRENT`, expected one of `SUGGESTIONS` |
 
-    This warning is only given if the region cannot be automatically fixed (when
-    regions split into multiple regions).
+  This warning is only given if the region cannot be automatically fixed (when
+  regions split into multiple regions).
 
 ###### Returns
 
@@ -142,20 +142,20 @@ This package is safe.
 
 ## Related
 
-*   [`wooorm/bcp-47`](https://github.com/wooorm/bcp-47)
-    — parse and stringify BCP 47 language tags
-*   [`wooorm/bcp-47-match`](https://github.com/wooorm/bcp-47-match)
-    — match BCP 47 language tags with language ranges per RFC 4647
-*   [`wooorm/iso-3166`](https://github.com/wooorm/iso-3166)
-    — ISO 3166 codes
-*   [`wooorm/iso-639-2`](https://github.com/wooorm/iso-639-2)
-    — ISO 639-2 codes
-*   [`wooorm/iso-639-3`](https://github.com/wooorm/iso-639-3)
-    — ISO 639-3 codes
-*   [`wooorm/iso-15924`](https://github.com/wooorm/iso-15924)
-    — ISO 15924 codes
-*   [`wooorm/un-m49`](https://github.com/wooorm/un-m49)
-    — UN M49 codes
+* [`wooorm/bcp-47`](https://github.com/wooorm/bcp-47)
+  — parse and stringify BCP 47 language tags
+* [`wooorm/bcp-47-match`](https://github.com/wooorm/bcp-47-match)
+  — match BCP 47 language tags with language ranges per RFC 4647
+* [`wooorm/iso-3166`](https://github.com/wooorm/iso-3166)
+  — ISO 3166 codes
+* [`wooorm/iso-639-2`](https://github.com/wooorm/iso-639-2)
+  — ISO 639-2 codes
+* [`wooorm/iso-639-3`](https://github.com/wooorm/iso-639-3)
+  — ISO 639-3 codes
+* [`wooorm/iso-15924`](https://github.com/wooorm/iso-15924)
+  — ISO 15924 codes
+* [`wooorm/un-m49`](https://github.com/wooorm/un-m49)
+  — UN M49 codes
 
 ## Contribute
 
@@ -168,40 +168,40 @@ See [How to Contribute to Open Source][contribute].
 
 <!-- Definitions -->
 
-[build-badge]: https://github.com/wooorm/bcp-47-normalize/workflows/main/badge.svg
-
-[build]: https://github.com/wooorm/bcp-47-normalize/actions
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/bcp-47-normalize.svg
-
-[coverage]: https://codecov.io/github/wooorm/bcp-47-normalize
-
-[downloads-badge]: https://img.shields.io/npm/dm/bcp-47-normalize.svg
-
-[downloads]: https://www.npmjs.com/package/bcp-47-normalize
-
-[size-badge]: https://img.shields.io/bundlephobia/minzip/bcp-47-normalize.svg
-
-[size]: https://bundlephobia.com/result?p=bcp-47-normalize
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[esmsh]: https://esm.sh
-
-[license]: license
+[alias]: https://github.com/unicode-org/cldr/blob/142b327/common/supplemental/supplementalMetadata.xml#L32
 
 [author]: https://wooorm.com
 
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+[build]: https://github.com/wooorm/bcp-47-normalize/actions
 
-[typescript]: https://www.typescriptlang.org
+[build-badge]: https://github.com/wooorm/bcp-47-normalize/workflows/main/badge.svg
 
 [contribute]: https://opensource.guide/how-to-contribute/
 
-[spec]: https://tools.ietf.org/rfc/bcp/bcp47.html
+[coverage]: https://codecov.io/github/wooorm/bcp-47-normalize
 
-[alias]: https://github.com/unicode-org/cldr/blob/142b327/common/supplemental/supplementalMetadata.xml#L32
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/bcp-47-normalize.svg
+
+[downloads]: https://www.npmjs.com/package/bcp-47-normalize
+
+[downloads-badge]: https://img.shields.io/npm/dm/bcp-47-normalize.svg
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
 
 [forgiving]: https://github.com/wooorm/bcp-47#optionsforgiving
+
+[license]: license
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[size]: https://bundlephobia.com/result?p=bcp-47-normalize
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/bcp-47-normalize.svg
+
+[spec]: https://tools.ietf.org/rfc/bcp/bcp47.html
+
+[typescript]: https://www.typescriptlang.org
 
 [warning]: https://github.com/wooorm/bcp-47#optionswarning

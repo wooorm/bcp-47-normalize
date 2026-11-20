@@ -26,7 +26,7 @@ const data = JSON.parse(
   )
 )
 
-const likelySubtags = data.supplemental.likelySubtags
+const {likelySubtags} = data.supplemental
 
 /** @type {Record<string, string>} */
 const likely = {}
@@ -81,11 +81,15 @@ await fs.writeFile(
     ' *',
     ' * @typedef AddOrRemove',
     ' * @property {Field} field',
+    ' *   Field.',
     ' * @property {string} value',
+    ' *   Value.',
     ' *',
     ' * @typedef Change',
     ' * @property {AddOrRemove} from',
+    ' *   Field and value to remove.',
     ' * @property {AddOrRemove} to',
+    ' *   Field and value to add.',
     ' */',
     '',
     '/**',
@@ -117,7 +121,9 @@ await fs.writeFile(
     '/**',
     ' * @typedef Change',
     ' * @property {string} from',
+    ' *   Tag to match.',
     ' * @property {string} to',
+    ' *   Tag to replace with.',
     ' */',
     '',
     '/**',
@@ -128,10 +134,17 @@ await fs.writeFile(
   ].join('\n')
 )
 
-/** @param {Element} node */
+/**
+ * Handle an element.
+ *
+ * @param {Element} node
+ *   Element.
+ * @returns {undefined}
+ *   Nothing.
+ */
 /* eslint-disable-next-line complexity */
 function onelement(node) {
-  let name = node.name
+  let {name} = node
   const attributes = node.attributes || {}
   const pos = name.indexOf(suffix)
 
@@ -234,8 +247,12 @@ function onelement(node) {
 }
 
 /**
+ * Turn a space-separated list of CLDR identifiers into BCP 47 subtags.
+ *
  * @param {string|null|undefined} value
+ *   Value.
  * @returns {Array<string>}
+ *   Subtags.
  */
 function clean(value) {
   return String(value || '')
