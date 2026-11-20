@@ -68,10 +68,30 @@ test('bcp-47-normalize (basic)', async function (t) {
     function warning(reason, code, offset) {
       assert.deepEqual(
         [reason, code, offset],
-        ['Deprecated region `an`, expected one of `cw`, `sx`, `bq`', -1, 7],
+        ['Deprecated region `an`, expected one of `cw`, `sx`, `bq`', -1, 4],
         'warning'
       )
       called = true
+    }
+  })
+
+  await t.test('should emit the offset of a deprecated region', function () {
+    /** @type {Array<number>} */
+    const offsets = []
+
+    normalize('an-an', {warning})
+    normalize('SR-Latn-YU', {warning})
+
+    assert.deepEqual(offsets, [3, 8])
+
+    /**
+     * Track the offset of a warning.
+     *
+     * @type {Warning}
+     */
+    function warning(_, code, offset) {
+      assert.equal(code, -1)
+      offsets.push(offset)
     }
   })
 
