@@ -239,7 +239,7 @@ See [How to Contribute to Open Source][opensource-guide-contribute].
 
 [github-bcp-47-warning]: https://github.com/wooorm/bcp-47#warning
 
-[github-cldr-alias]: https://github.com/unicode-org/cldr/blob/142b327/common/supplemental/supplementalMetadata.xml#L32
+[github-cldr-alias]: https://github.com/unicode-org/cldr/blob/release-49/common/supplemental/supplementalMetadata.xml
 
 [github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 

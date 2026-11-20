@@ -14,7 +14,7 @@ import {normal} from 'bcp-47/lib/normal.js'
 
 const own = {}.hasOwnProperty
 
-/** @type {{supplemental: {likelySubtags: Record<string, string>}}} */
+/** @type {{supplemental: {likelySubtags: Record<string, string>, version: {_cldrVersion: string}}}} */
 const data = JSON.parse(
   String(
     await fs.readFile(
@@ -26,7 +26,7 @@ const data = JSON.parse(
   )
 )
 
-const {likelySubtags} = data.supplemental
+const {likelySubtags, version} = data.supplemental
 
 /** @type {Record<string, string>} */
 const likely = {}
@@ -50,10 +50,19 @@ await fs.writeFile(
   ].join('\n')
 )
 
+// Aliases from the same CLDR release as `cldr-core` (`49` -> `release-49`,
+// `48.1` -> `release-48-1`).
 const endpoint =
-  'https://raw.githubusercontent.com/unicode-org/cldr/HEAD/common/supplemental/supplementalMetadata.xml'
+  'https://raw.githubusercontent.com/unicode-org/cldr/release-' +
+  version._cldrVersion.replaceAll('.', '-') +
+  '/common/supplemental/supplementalMetadata.xml'
 
 const response = await fetch(endpoint)
+
+if (!response.ok) {
+  throw new Error('Cannot fetch `' + endpoint + '`: ' + response.status)
+}
+
 const text = await response.text()
 
 /** @type {Array<Field>} */

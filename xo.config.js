@@ -13,6 +13,7 @@ const xoConfig = [
       'jsdoc/check-line-alignment': 'off',
       'jsdoc/informative-docs': 'off',
       'jsdoc/require-asterisk-prefix': 'off',
+      'max-lines': 'off',
       'no-shadow': 'off',
       // Asserts are used to narrow types.
       'node-test/no-conditional-assertion': 'off',
